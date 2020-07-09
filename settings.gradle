@@ -1,3 +1,4 @@
 rootProject.name = 'apache'
 include 'common-pool'
+include 'zookeeper'
 
