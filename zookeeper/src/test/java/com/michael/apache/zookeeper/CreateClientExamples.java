@@ -4,6 +4,7 @@ import org.apache.curator.RetryPolicy;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.retry.ExponentialBackoffRetry;
+import org.apache.zookeeper.CreateMode;
 import org.junit.Test;
 
 /**
@@ -13,11 +14,17 @@ public class CreateClientExamples {
 
 
     @Test
-    public void testConnect() {
-        CuratorFramework framework = createSimple("localhost:2181");
+    public void testConnect() throws Exception {
+        ExponentialBackoffRetry retryPolicy = new ExponentialBackoffRetry(1000, 3);
+        CuratorFramework client = createWithOptions("localhost:2181", retryPolicy, 100, 10000);
+        client.start();
 
-        framework.start();
+        client.create()
+                .creatingParentsIfNeeded()
+                .withMode(CreateMode.EPHEMERAL)
+                .forPath("/michael", "Michael".getBytes());
 
+        client.close();
     }
 
     public CuratorFramework createSimple(String connectionString) {
@@ -26,15 +33,13 @@ public class CreateClientExamples {
     }
 
     public static CuratorFramework createWithOptions(String connectionString, RetryPolicy retryPolicy, int connectionTimeoutMs, int sessionTimeoutMs) {
-        // using the CuratorFrameworkFactory.builder() gives fine grained control
-        // over creation options. See the CuratorFrameworkFactory.Builder javadoc
-        // details
+
         return CuratorFrameworkFactory.builder()
                 .connectString(connectionString)
                 .retryPolicy(retryPolicy)
                 .connectionTimeoutMs(connectionTimeoutMs)
                 .sessionTimeoutMs(sessionTimeoutMs)
-                .namespace("michael.test")
+                .namespace("michael")
                 .build();
     }
 

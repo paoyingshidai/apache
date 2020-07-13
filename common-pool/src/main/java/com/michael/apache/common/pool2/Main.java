@@ -14,6 +14,9 @@ public class Main {
         config.setMaxIdle(20);
         config.setMaxTotal(100);
         config.setMinIdle(5);
+        config.setTestOnCreate(true);
+        config.setTestOnBorrow(true);
+        config.setTestOnReturn(true);
 
         GenericObjectPool<GameRoom> pool = new GenericObjectPool(gameRoomFactory, config);
         GameRoom gameRoom = null;
