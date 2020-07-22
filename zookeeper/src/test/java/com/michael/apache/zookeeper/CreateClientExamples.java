@@ -93,10 +93,7 @@ public class CreateClientExamples {
         client.create()
                 .creatingParentsIfNeeded()
                 .withMode(CreateMode.EPHEMERAL)
-                .forPath("/michael", "Michael".getBytes());
-
-        byte[] bytes = client.getData().forPath("/michael");
-        String s = new String(bytes);
+                .forPath("/michael", "Michael1".getBytes());
 
         client.close();
     }
@@ -113,6 +110,7 @@ public class CreateClientExamples {
                 .retryPolicy(retryPolicy)
                 .connectionTimeoutMs(connectionTimeoutMs)
                 .sessionTimeoutMs(sessionTimeoutMs)
+                .namespace("name")
                 .build();
     }
 
