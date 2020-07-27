@@ -10,12 +10,7 @@ public class MainTest {
     @Test
     public void test() {
 
-        Set<Integer> set = new HashSet<Integer>();
-        set.add(new Integer(999));
 
-        System.out.println(set.contains(new Integer(999)));
-
-        System.out.println(Integer.valueOf(1) == (Integer.valueOf(1)));
     }
 
 }
