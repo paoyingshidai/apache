@@ -35,6 +35,12 @@ public class GameRoomFactory extends BasePooledObjectFactory<GameRoom> {
     @Override
     public boolean validateObject(PooledObject<GameRoom> p) {
         System.out.println("validateObject");
-        return super.validateObject(p);
+        return true;
+    }
+
+    @Override
+    public void destroyObject(PooledObject<GameRoom> p) throws Exception {
+        System.out.println("destroy object");
+        super.destroyObject(p);
     }
 }

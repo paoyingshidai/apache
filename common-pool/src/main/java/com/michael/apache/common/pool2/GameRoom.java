@@ -1,7 +1,7 @@
 package com.michael.apache.common.pool2;
 
 /**
- * @auth Michael
+ * @author Michael
  */
 public class GameRoom {
 }

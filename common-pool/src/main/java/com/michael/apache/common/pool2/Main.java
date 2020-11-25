@@ -9,10 +9,12 @@ import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 public class Main {
 
     public static void main(String[] args) throws Exception {
+
         GameRoomFactory gameRoomFactory = new GameRoomFactory();
+
         GenericObjectPoolConfig config = new GenericObjectPoolConfig();
-        config.setMaxIdle(20);
-        config.setMaxTotal(100);
+        config.setMaxIdle(10);
+        config.setMaxTotal(11);
         config.setMinIdle(5);
         config.setTestOnCreate(true);
         config.setTestOnBorrow(true);
@@ -22,6 +24,7 @@ public class Main {
         GameRoom gameRoom = null;
        try {
            gameRoom = pool.borrowObject();
+
            System.out.println(gameRoom);
        } finally {
            pool.returnObject(gameRoom);

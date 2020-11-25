@@ -1,14 +1,14 @@
 buildscript {
-    ext {
-        springBootVersion = '2.3.0.RELEASE'
-    }
     repositories {
         maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
         maven { url 'http://maven.aliyun.com/nexus/content/repositories/jcenter' }
     }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-    }
+}
+
+plugins {
+    id 'org.springframework.boot' version '2.4.0'
+    id 'io.spring.dependency-management' version '1.0.10.RELEASE'
+    id 'java'
 }
 
 apply plugin: 'java'
@@ -19,6 +19,12 @@ apply plugin: 'io.spring.dependency-management'
 group = 'com.michael'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
 
 allprojects {
     repositories {
@@ -38,7 +44,7 @@ subprojects {
         compile group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf'
         compile('org.springframework.boot:spring-boot-starter-web')
         compile group: 'com.alibaba', name: 'fastjson', version: '1.2.54'
-        compile group: 'org.projectlombok', name: 'lombok', version: '1.18.0'
+
         testImplementation('org.springframework.boot:spring-boot-starter-test')
 
         compile group: 'org.apache.curator', name: 'curator-recipes', version: '5.1.0'
